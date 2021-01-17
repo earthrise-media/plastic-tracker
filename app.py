@@ -46,6 +46,14 @@ st.image(
 )
 
 
+st.markdown("""
+
+	The following visualization is an incremental illustration of how to go from
+	real data to the intended visualization.  **Note that you can expand the
+	visualization using the fullscreen button in the top-right corner.**
+
+""")
+
 @st.cache(persist=True)
 def load_data(plot=True):
 	# Cache the datasets that we rely on, so we don't have to reload them over
@@ -87,10 +95,20 @@ min_tradeval = st.slider(
 )
 
 
-# TEST VIZ: Group the plastic conversion into a dataframe ready for Plotly
-# sankey visualization
+st.markdown(""" 
+
+	The first Sankey diagram plots the connection between the country that has
+	converted the polymer to the final destination of the single-use plastics. 
+	Note that there are a few loops &mdash; where a country will both produce and
+	consume the single-use plastics.  This does not qualify as an "alluvial"
+	Sankey diagram, and would not be suitable for the final visualization. The
+	visualization is pretty cool, even without the country labels.
+
+""")
+
 viz_links = conversion_links[conversion_links.owner.isin(top_producers[0:n_producer])]
-viz_links = viz_links[viz_links.polymer == polymer].groupby(["source_country", "polymer", "country"]).sum()
+viz_links = viz_links[viz_links.polymer == polymer]
+viz_links = viz_links.groupby(["source_country", "polymer", "country"]).sum()
 viz_links = viz_links[viz_links.tradeval > min_tradeval].reset_index()
 
 countries = set(viz_links.source_country).union(set(viz_links.country))
@@ -99,6 +117,7 @@ node_dict = {nodes[i]: i for i in range(len(nodes))}
 viz_links["source"] = viz_links.source_country.map(node_dict)
 viz_links["target"] = viz_links.country.map(node_dict)
 viz_links["value"]  = viz_links.tradeval
+
 labels = list(node_dict.keys())
 
 link = dict(
@@ -107,8 +126,16 @@ link = dict(
 	value  = viz_links.value
 )
 
-data = go.Sankey(link = link)
+data = go.Sankey(link=link)
+
+config = {'displayModeBar': False}
 fig = go.Figure(data)
 
+st.plotly_chart(fig, config=config, use_container_width=True)
 
-st.plotly_chart(fig, use_container_width=True)
+st.markdown(""" 
+
+	The data has to be reassembled to support a linear flow diagram (i.e.,
+	indicating a flow from left to right).
+
+""")
