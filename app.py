@@ -69,9 +69,22 @@ resin_links = data["resin_trade"]
 top_producers = data["top_producers"]
 conversion_links = data["conversion_trade"]
 
-polymer = "LDPE"
-n_producer = 10
-min_tradeval = 30
+# Selection of visualization options
+
+polymer = st.selectbox(
+	'Polymer type',
+	['LDPE']
+)
+
+n_producer = st.slider(
+	'Number of top producers to visualize',
+	5, 30, 10
+)
+
+min_tradeval = st.slider(
+	'Minimum number of kilotons to include in trade links',
+	1, 50, 30
+)
 
 
 # TEST VIZ: Group the plastic conversion into a dataframe ready for Plotly
