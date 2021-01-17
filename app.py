@@ -73,7 +73,7 @@ conversion_links = data["conversion_trade"]
 
 polymer = st.selectbox(
 	'Polymer type',
-	['LDPE']
+	['LDPE', 'LLDPE', 'HDPE', 'PP', 'PET']
 )
 
 n_producer = st.slider(
@@ -90,7 +90,7 @@ min_tradeval = st.slider(
 # TEST VIZ: Group the plastic conversion into a dataframe ready for Plotly
 # sankey visualization
 viz_links = conversion_links[conversion_links.owner.isin(top_producers[0:n_producer])]
-viz_links = viz_links[viz_links.polymer == "LDPE"].groupby(["source_country", "polymer", "country"]).sum()
+viz_links = viz_links[viz_links.polymer == polymer].groupby(["source_country", "polymer", "country"]).sum()
 viz_links = viz_links[viz_links.tradeval > min_tradeval].reset_index()
 
 countries = set(viz_links.source_country).union(set(viz_links.country))
