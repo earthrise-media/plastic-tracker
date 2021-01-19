@@ -3,7 +3,7 @@ import numpy as np
 import altair as alt
 import streamlit as st
 import plotly.graph_objects as go
-
+import geopandas
 
 from PIL import Image
 
@@ -179,3 +179,80 @@ st.markdown("""
 	indicating a flow from left to right).
 
 """)
+
+viz_links = conversion_links[conversion_links.owner.isin(top_producers[0:n_producer])]
+viz_links = viz_links[viz_links.polymer == "LDPE"].groupby(["source_country", "polymer", "country"]).sum()
+viz_links = viz_links[viz_links.tradeval > min_tradeval].reset_index()
+
+source = sorted(list(set(viz_links.source_country)))
+target = sorted(list(set(viz_links.country)))
+
+source_node_dict = {source[i]: i for i in range(len(source))}
+target_node_dict = {target[i]: i + len(source) for i in range(len(target))}
+
+viz_links["source"] = viz_links.source_country.map(source_node_dict)
+viz_links["target"] = viz_links.country.map(target_node_dict)
+viz_links["value"]  = viz_links.tradeval
+
+labels = source + target
+
+link = dict(
+	source = viz_links.source, 
+	target = viz_links.target, 
+	value  = viz_links.value,
+	hoverlabel = dict(
+		bordercolor='rgb(228, 218, 204)',
+		bgcolor = 'rgb(228, 218, 204)',
+		font = dict(
+			family="Open Sans",
+			size=12,
+			color='rgb(68, 68, 68)'
+		)
+	),
+	label=labels
+)
+
+node=dict(
+	# Put in default that is overwritten by the "none"
+	hoverinfo="none",
+	pad=15,
+	thickness=20,
+	line=dict(
+		color="black",
+		width=0.5
+	),
+	hoverlabel = dict(
+		bordercolor='rgb(228, 218, 204)',
+		bgcolor = 'rgb(228, 218, 204)',
+		font = dict(
+			family="Open Sans",
+			size=12,
+			color='rgb(68, 68, 68)'
+		)
+	)
+)
+
+data = go.Sankey(link=link, node=node)
+
+# Configurations
+config = {'displayModeBar': False}
+layout = go.Layout(
+	paper_bgcolor = 'rgb(228, 218, 204)',
+	plot_bgcolor = 'rgb(228, 218, 204)'
+)
+
+fig = go.Figure(data=data, layout=layout)
+
+fig.update_layout(
+    font=dict(size = 30, color = 'white')
+)
+
+st.plotly_chart(fig, config=config, use_container_width=True)
+
+st.subheader("The location of the assets")
+image = Image.open('imgs/assets.png')
+
+st.image(
+	image, 
+	use_column_width=True
+)
