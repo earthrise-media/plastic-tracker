@@ -181,7 +181,7 @@ st.markdown("""
 """)
 
 viz_links = conversion_links[conversion_links.owner.isin(top_producers[0:n_producer])]
-viz_links = viz_links[viz_links.polymer == "LDPE"].groupby(["source_country", "polymer", "country"]).sum()
+viz_links = viz_links[viz_links.polymer == polymer].groupby(["source_country", "polymer", "country"]).sum()
 viz_links = viz_links[viz_links.tradeval > min_tradeval].reset_index()
 
 source = sorted(list(set(viz_links.source_country)))
@@ -249,7 +249,108 @@ fig.update_layout(
 
 st.plotly_chart(fig, config=config, use_container_width=True)
 
-st.subheader("The location of the assets")
+
+st.markdown("""
+
+	The major issue will be the units when stringing the data together.  It is
+	unclear how to track the input from a polymer producer through to the
+	plastics at the final destination &mdash; which have multiple inputs which
+	still translate into traded weight.
+
+""")
+
+
+second_link = resin_links[resin_links.owner.isin(top_producers[0:n_producer])]
+second_link = second_link[second_link.polymer == polymer].groupby(["owner", "polymer", "country"]).sum()
+second_link = second_link[second_link.tradeval > min_tradeval].reset_index()
+
+b_nodes = sorted(list(
+    set(second_link.owner)
+))
+
+# The target for the second link is the source for third (and final) link
+c_nodes = sorted(list(
+    set(second_link.country)
+))
+
+b_node_dict = {b_nodes[i]: i for i in range(len(b_nodes))}
+c_node_dict = {c_nodes[i]: i + len(b_nodes) for i in range(len(c_nodes))}
+
+
+second_source = second_link.owner.map(b_node_dict)
+second_target = second_link.country.map(c_node_dict)
+
+viz_links = pd.DataFrame.from_dict({
+    "source": second_source,
+    "target": second_target, 
+    "value" : second_link.tradeval
+})
+
+
+third_link = conversion_links[conversion_links.source_country.isin(c_nodes)]
+third_link = third_link[third_link.polymer == polymer].groupby(["source_country", "polymer", "country"]).sum()
+third_link = third_link[third_link.tradeval > min_tradeval].reset_index()
+
+d_nodes = sorted(list(
+    set(third_link.country)
+))
+
+d_node_dict = {d_nodes[i]: i + len(b_nodes) + len(c_nodes) for i in range(len(d_nodes))}
+
+third_source = third_link.source_country.map(c_node_dict)
+third_target = third_link.country.map(d_node_dict)
+
+viz_links_b = pd.DataFrame.from_dict({
+    "source": third_source,
+    "target": third_target, 
+    "value" : third_link.tradeval
+})
+
+viz_links = viz_links.append(viz_links_b, ignore_index=True)
+
+labels = b_nodes + c_nodes + d_nodes
+
+fig = go.Figure(
+	data=[go.Sankey(
+		node = dict(
+			pad = 15,
+			thickness = 30,
+			line = dict(color = "black", width = 0.5),
+			label = labels,
+			color = "#303030",
+			hoverlabel = dict(
+				bordercolor='rgb(228, 218, 204)',
+				bgcolor = 'rgb(228, 218, 204)',
+				font = dict(
+					family="Open Sans",
+					size=12,
+					color='rgb(68, 68, 68)'
+				)
+			)
+		),
+		link = dict(
+			source = viz_links.source,
+			target = viz_links.target,
+			value = viz_links.value,
+			hoverlabel = dict(
+				bordercolor='rgb(228, 218, 204)',
+				bgcolor = 'rgb(228, 218, 204)',
+				font = dict(
+					family="Open Sans",
+					size=12,
+					color='rgb(68, 68, 68)'
+				)
+			)
+		)
+	)],
+	layout=layout
+)
+
+st.plotly_chart(fig, config=config, use_container_width=True)
+
+st.markdown(""" The location of the assets **may** help filter the nodes in
+the Sankey diagram. """)
+
 image = Image.open('imgs/assets.png')
 
 st.image(
