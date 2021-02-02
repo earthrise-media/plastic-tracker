@@ -82,17 +82,17 @@ locations = data["locations"]
 
 # Selection of visualization options
 
-polymer = st.selectbox(
+polymer = st.sidebar.selectbox(
 	'Polymer type',
 	['LDPE', 'LLDPE', 'HDPE', 'PP', 'PET']
 )
 
-n_producer = st.slider(
+n_producer = st.sidebar.slider(
 	'Number of top producers to visualize',
 	5, 30, 10
 )
 
-min_tradeval = st.slider(
+min_tradeval = st.sidebar.slider(
 	'Minimum number of kilotons to include in trade links',
 	1, 50, 30
 )
@@ -266,7 +266,7 @@ st.markdown("""
 second_link = resin_links[resin_links.owner.isin(top_producers[0:n_producer])]
 second_link = second_link[second_link.polymer == polymer].groupby(["owner", "polymer", "country"]).sum()
 second_link = second_link[second_link.tradeval > min_tradeval].reset_index()
-source_country = st.selectbox(
+source_country = st.sidebar.selectbox(
 	'Source Country',
 	['All'] + sorted(second_link.country.unique())
     )
