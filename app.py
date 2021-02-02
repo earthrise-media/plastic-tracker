@@ -3,6 +3,7 @@ import numpy as np
 import altair as alt
 import streamlit as st
 import plotly.graph_objects as go
+import pydeck as pdk
 import geopandas
 
 from PIL import Image
@@ -41,7 +42,7 @@ from dollars to polymers to plastic waste.
 image = Image.open('imgs/screen.png')
 
 st.image(
-	image, 
+	image,
 	use_column_width=True
 )
 
@@ -63,19 +64,21 @@ def load_data(plot=True):
 	top_producers = top_producers[["Operator", "2019 Production"]].sort_values(
 		by=["2019 Production"], ascending=False
 	)
-	
+
 	top_producers = top_producers["Operator"].to_list()
 
 	return {
 		"top_producers": top_producers,
 		"resin_trade": pd.read_pickle("dataframes/resin_trade_links.pkl"),
-		"conversion_trade": pd.read_pickle("dataframes/conversion_links.pkl")
+		"conversion_trade": pd.read_pickle("dataframes/conversion_links.pkl"),
+        "locations": pd.read_pickle("dataframes/coords.pkl")
 	}
 
 data = load_data()
 resin_links = data["resin_trade"]
 top_producers = data["top_producers"]
 conversion_links = data["conversion_trade"]
+locations = data["locations"]
 
 # Selection of visualization options
 
@@ -95,10 +98,10 @@ min_tradeval = st.slider(
 )
 
 
-st.markdown(""" 
+st.markdown("""
 
 	The first Sankey diagram plots the connection between the country that has
-	converted the polymer to the final destination of the single-use plastics. 
+	converted the polymer to the final destination of the single-use plastics.
 	Note that there are a few loops &mdash; where a country will both produce and
 	consume the single-use plastics.  This does not qualify as an "alluvial"
 	Sankey diagram, and would not be suitable for the final visualization. The
@@ -121,8 +124,8 @@ viz_links["value"]  = viz_links.tradeval
 labels = list(node_dict.keys())
 
 link = dict(
-	source = viz_links.source, 
-	target = viz_links.target, 
+	source = viz_links.source,
+	target = viz_links.target,
 	value  = viz_links.value,
 	hoverlabel = dict(
 		bordercolor='rgb(228, 218, 204)',
@@ -173,7 +176,7 @@ fig.update_layout(
 
 st.plotly_chart(fig, config=config, use_container_width=True)
 
-st.markdown(""" 
+st.markdown("""
 
 	The data has to be reassembled to support a linear flow diagram (i.e.,
 	indicating a flow from left to right).
@@ -197,8 +200,8 @@ viz_links["value"]  = viz_links.tradeval
 labels = source + target
 
 link = dict(
-	source = viz_links.source, 
-	target = viz_links.target, 
+	source = viz_links.source,
+	target = viz_links.target,
 	value  = viz_links.value,
 	hoverlabel = dict(
 		bordercolor='rgb(228, 218, 204)',
@@ -263,6 +266,13 @@ st.markdown("""
 second_link = resin_links[resin_links.owner.isin(top_producers[0:n_producer])]
 second_link = second_link[second_link.polymer == polymer].groupby(["owner", "polymer", "country"]).sum()
 second_link = second_link[second_link.tradeval > min_tradeval].reset_index()
+source_country = st.selectbox(
+	'Source Country',
+	['All'] + sorted(second_link.country.unique())
+    )
+
+if not source_country == 'All':
+    second_link = second_link[second_link.country == source_country]
 
 b_nodes = sorted(list(
     set(second_link.owner)
@@ -282,7 +292,7 @@ second_target = second_link.country.map(c_node_dict)
 
 viz_links = pd.DataFrame.from_dict({
     "source": second_source,
-    "target": second_target, 
+    "target": second_target,
     "value" : second_link.tradeval
 })
 
@@ -302,7 +312,7 @@ third_target = third_link.country.map(d_node_dict)
 
 viz_links_b = pd.DataFrame.from_dict({
     "source": third_source,
-    "target": third_target, 
+    "target": third_target,
     "value" : third_link.tradeval
 })
 
@@ -351,9 +361,39 @@ st.plotly_chart(fig, config=config, use_container_width=True)
 st.markdown(""" The location of the assets **may** help filter the nodes in
 the Sankey diagram. """)
 
+if source_country == 'All':
+    coordinates = pd.DataFrame({
+        'lon': locations['lon'],
+        'lat': locations['lat']
+        })
+else:
+    coordinates = pd.DataFrame({
+        'lon': locations[locations['Country'] == source_country]['lon'],
+        'lat': locations[locations['Country'] == source_country]['lat']
+    })
+
+st.pydeck_chart(pdk.Deck(
+    map_style='mapbox://styles/clkruse/ckkndgubg5moy17pbaic26yzw',
+    initial_view_state=pdk.ViewState(
+        latitude=30,
+        longitude=0,
+        zoom=.75
+    ),
+    layers=[
+        pdk.Layer(
+            'ScatterplotLayer',
+            data=coordinates,
+            get_position='[lon, lat]',
+            get_color='[200, 30, 0, 160]',
+            radius_min_pixels=1.5,
+            radius_max_pixels=1.5,
+        )
+    ],
+    ))
+
 image = Image.open('imgs/assets.png')
 
 st.image(
-	image, 
+	image,
 	use_column_width=True
 )
