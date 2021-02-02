@@ -1,0 +1,11 @@
+[server]
+# Automatically rerun script when the file is modified on disk.
+# Default: false
+runOnSave = true
+
+
+[mapbox]
+
+# Configure Streamlit to use a custom Mapbox token for elements like st.pydeck_chart and st.map. To get a token for yourself, create an account at https://mapbox.com. It's free (for moderate usage levels)!
+# Caleb's Token: ""
+token = "pk.eyJ1IjoiY2xrcnVzZSIsImEiOiJjaXIxY2M2dGcwMnNiZnZtZzN0Znk3MXRuIn0.MyKHSjxjG-ZcI2BkRUSGJA"

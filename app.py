@@ -3,6 +3,7 @@ import numpy as np
 import altair as alt
 import streamlit as st
 import plotly.graph_objects as go
+import pydeck as pdk
 import geopandas
 
 from PIL import Image
@@ -70,12 +71,14 @@ def load_data(plot=True):
 		"top_producers": top_producers,
 		"resin_trade": pd.read_pickle("dataframes/resin_trade_links.pkl"),
 		"conversion_trade": pd.read_pickle("dataframes/conversion_links.pkl")
+        "locations": pd.read_pickle("dataframes/coords.pkl")
 	}
 
 data = load_data()
 resin_links = data["resin_trade"]
 top_producers = data["top_producers"]
 conversion_links = data["conversion_trade"]
+locations = data["locations"]
 
 # Selection of visualization options
 
@@ -263,6 +266,13 @@ st.markdown("""
 second_link = resin_links[resin_links.owner.isin(top_producers[0:n_producer])]
 second_link = second_link[second_link.polymer == polymer].groupby(["owner", "polymer", "country"]).sum()
 second_link = second_link[second_link.tradeval > min_tradeval].reset_index()
+source_country = st.selectbox(
+	'Source Country',
+	['All'] + sorted(second_link.country.unique())
+    )
+
+if not source_country == 'All':
+    second_link = second_link[second_link.country == source_country]
 
 b_nodes = sorted(list(
     set(second_link.owner)
@@ -350,6 +360,36 @@ st.plotly_chart(fig, config=config, use_container_width=True)
 
 st.markdown(""" The location of the assets **may** help filter the nodes in
 the Sankey diagram. """)
+
+if source_country == 'All':
+    coordinates = pd.DataFrame({
+        'lon': locations['lon'],
+        'lat': locations['lat']
+        })
+else:
+    coordinates = pd.DataFrame({
+        'lon': locations[locations['Country'] == source_country]['lon'],
+        'lat': locations[locations['Country'] == source_country]['lat']
+    })
+
+st.pydeck_chart(pdk.Deck(
+    map_style='mapbox://styles/clkruse/ckkndgubg5moy17pbaic26yzw',
+    initial_view_state=pdk.ViewState(
+        latitude=30,
+        longitude=0,
+        zoom=.75
+    ),
+    layers=[
+        pdk.Layer(
+            'ScatterplotLayer',
+            data=coordinates,
+            get_position='[lon, lat]',
+            get_color='[200, 30, 0, 160]',
+            radius_min_pixels=1.5,
+            radius_max_pixels=1.5,
+        )
+    ],
+    ))
 
 image = Image.open('imgs/assets.png')
 
