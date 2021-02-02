@@ -373,20 +373,20 @@ else:
     })
 
 st.pydeck_chart(pdk.Deck(
-    map_style='mapbox://styles/clkruse/ckkndgubg5moy17pbaic26yzw',
+    map_style='mapbox://styles/clkruse/ckknn3o0u4hcc17o93jdxgomt',
     initial_view_state=pdk.ViewState(
         latitude=30,
         longitude=0,
-        zoom=.75
+        zoom=.5
     ),
     layers=[
         pdk.Layer(
             'ScatterplotLayer',
             data=coordinates,
             get_position='[lon, lat]',
-            get_color='[200, 30, 0, 160]',
-            radius_min_pixels=1.5,
-            radius_max_pixels=1.5,
+            get_color='[253, 89, 38]',
+            radius_min_pixels=1,
+            radius_max_pixels=1,
         )
     ],
     ))
