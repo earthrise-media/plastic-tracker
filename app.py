@@ -70,7 +70,7 @@ def load_data(plot=True):
 	return {
 		"top_producers": top_producers,
 		"resin_trade": pd.read_pickle("dataframes/resin_trade_links.pkl"),
-		"conversion_trade": pd.read_pickle("dataframes/conversion_links.pkl")
+		"conversion_trade": pd.read_pickle("dataframes/conversion_links.pkl"),
         "locations": pd.read_pickle("dataframes/coords.pkl")
 	}
 
