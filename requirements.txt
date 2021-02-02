@@ -1,7 +1,9 @@
+altair
 geopandas
+numpy
+openpyxl
+pandas
+plotly
+pydeck
 scipy
 streamlit
-numpy
-pandas
-altair
-plotly
