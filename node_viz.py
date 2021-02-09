@@ -225,7 +225,7 @@ st.plotly_chart(producer_plot, use_container_width=True, config=plot_config)
 
 
 st.markdown("""
-PPI Node 2-3: Country of Production to Country of Impact
+PPI Node 3-4: Country of Production to Country of Impact
 """)
 
 n_country_sources = st.slider(
