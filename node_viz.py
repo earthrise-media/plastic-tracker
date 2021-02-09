@@ -80,6 +80,12 @@ def create_sankey_dict(sankey_df):
 
 def plot_sankey(sankey_dict, title):
     """Plot a Sankey diagram. By default, line height is given by the target values"""
+    # Figure configuration
+
+    layout = go.Layout(
+    	paper_bgcolor = 'rgb(228, 218, 204)',
+    	plot_bgcolor = 'rgb(228, 218, 204)'
+    )
     fig = go.Figure(data=[go.Sankey(
         node = dict(
           pad = 15,
@@ -92,7 +98,7 @@ def plot_sankey(sankey_dict, title):
           source = sankey_dict['source'],
           target = sankey_dict['target'],
           value  = sankey_dict['target_values']
-      ))])
+      ))], layout=layout)
 
     fig.update_layout(title_text=title, font_size=10)
     return fig
@@ -145,6 +151,7 @@ def load_data():
 
 st.header("Global Plastic Polluters Index")
 investor, financer, producer, waste = load_data()
+plot_config = {'displayModeBar': False}
 
 st.markdown("""
 PPI Node 1-2: Financer OR Investor to Producer
@@ -167,13 +174,13 @@ if financing_type == 'Financer':
     )
     minimum_financing_value = st.slider(
     	'Threshold for minimum funding value',
-    	0, int(financer.max().max()), 100
+    	0, int(financer.max().max()), 500
     )
     financer_df = filter_df(financer, num_sources=n_money_sources, num_targets=n_producer_targets)
     financer_sankey_df = create_sankey_df(financer_df, min_val=minimum_financing_value)
     financer_sankey_dict = create_sankey_dict(financer_sankey_df)
     financer_plot = plot_sankey(financer_sankey_dict, 'Financer to Producer')
-    st.plotly_chart(financer_plot, use_container_width=True)
+    st.plotly_chart(financer_plot, use_container_width=True, config=plot_config)
 
 if financing_type == 'Investor':
     n_money_sources = st.slider(
@@ -192,7 +199,7 @@ if financing_type == 'Investor':
     investor_sankey_df = create_sankey_df(investor_df, min_val=minimum_financing_value)
     investor_sankey_dict = create_sankey_dict(investor_sankey_df)
     investor_plot = plot_sankey(investor_sankey_dict, 'Investor to Producer')
-    st.plotly_chart(investor_plot, use_container_width=True)
+    st.plotly_chart(investor_plot, use_container_width=True, config=plot_config)
 
 st.markdown("""
 PPI Node 2-3: Producer to Country of Production
@@ -214,7 +221,7 @@ producer_df = filter_df(producer, num_sources=n_producer_sources, num_targets=n_
 producer_sankey_df = create_sankey_df(producer_df, min_val=minimum_production_value)
 producer_sankey_dict = create_sankey_dict(producer_sankey_df)
 producer_plot = plot_sankey(producer_sankey_dict, 'Producer to Country of Production')
-st.plotly_chart(producer_plot, use_container_width=True)
+st.plotly_chart(producer_plot, use_container_width=True, config=plot_config)
 
 
 st.markdown("""
@@ -238,4 +245,4 @@ waste_df = filter_df(waste, num_sources=n_country_sources, num_targets=n_waste_t
 waste_sankey_df = create_sankey_df(waste_df, min_val=minimum_waste_value)
 waste_sankey_dict = create_sankey_dict(waste_sankey_df)
 waste_plot = plot_sankey(waste_sankey_dict, 'Country of Production to Country of Impact')
-st.plotly_chart(waste_plot, use_container_width=True)
+st.plotly_chart(waste_plot, use_container_width=True, config=plot_config)
