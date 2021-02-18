@@ -229,7 +229,7 @@ PPI Node 3-4: Country of Production to Country of Impact
 """)
 
 n_country_sources = st.slider(
-	'Number of top producers to visualize',
+	'Number of top producing countries to visualize',
 	1, len(waste), 10
 )
 n_waste_targets = st.slider(
