@@ -1,0 +1,236 @@
+Country,Population,Region
+Turkey,84339067,Middle East & Africa
+Iraq,40222493,Middle East & Africa
+Saudi Arabia,34813871,Middle East & Africa
+Yemen,29825964,Middle East & Africa
+Pakistan,220892340,Middle East & Africa
+Syria,17500658,Middle East & Africa
+Jordan,10203134,Middle East & Africa
+Azerbaijan,10139177,Middle East & Africa
+United Arab Emirates,9890402,Middle East & Africa
+Israel,8655535,Middle East & Africa
+Lebanon,6825445,Middle East & Africa
+Oman,5106626,Middle East & Africa
+State of Palestine,5101414,Middle East & Africa
+Kuwait,4270571,Middle East & Africa
+Armenia,2963243,Middle East & Africa
+Qatar,2881053,Middle East & Africa
+Bahrain,1701575,Middle East & Africa
+Nigeria,206139589,Middle East & Africa
+Ethiopia,114963588,Middle East & Africa
+Egypt,102334404,Middle East & Africa
+DR Congo,89561403,Middle East & Africa
+South Africa,59308690,Middle East & Africa
+Tanzania,59734218,Middle East & Africa
+Kenya,53771296,Middle East & Africa
+Uganda,45741007,Middle East & Africa
+Algeria,43851044,Middle East & Africa
+Sudan,43849260,Middle East & Africa
+Afghanistan,38928346,Middle East & Africa
+Morocco,36910560,Middle East & Africa
+Angola,32866272,Middle East & Africa
+Ghana,31072940,Middle East & Africa
+Mozambique,31255435,Middle East & Africa
+Madagascar,27691018,Middle East & Africa
+Cameroon,26545863,Middle East & Africa
+Cote d'Ivoire,26378274,Middle East & Africa
+Niger,24206644,Middle East & Africa
+Burkina Faso,20903273,Middle East & Africa
+Mali,20250833,Middle East & Africa
+Malawi,19129952,Middle East & Africa
+Zambia,18383955,Middle East & Africa
+Senegal,16743927,Middle East & Africa
+Chad,16425864,Middle East & Africa
+Somalia,15893222,Middle East & Africa
+Zimbabwe,14862924,Middle East & Africa
+Guinea,13132795,Middle East & Africa
+Rwanda,12952218,Middle East & Africa
+Benin,12123200,Middle East & Africa
+Tunisia,11818619,Middle East & Africa
+Burundi,11890784,Middle East & Africa
+South Sudan,11193725,Middle East & Africa
+Togo,8278724,Middle East & Africa
+Sierra Leone,7976983,Middle East & Africa
+Libya,6871292,Middle East & Africa
+Congo,5518087,Middle East & Africa
+Liberia,5057681,Middle East & Africa
+Central African Republic,4829767,Middle East & Africa
+Mauritania,4649658,Middle East & Africa
+Eritrea,3546421,Middle East & Africa
+Namibia,2540905,Middle East & Africa
+Gambia,2416668,Middle East & Africa
+Botswana,2351627,Middle East & Africa
+Gabon,2225734,Middle East & Africa
+Lesotho,2142249,Middle East & Africa
+Guinea-Bissau,1968001,Middle East & Africa
+Equatorial Guinea,1402985,Middle East & Africa
+Mauritius,1271768,Middle East & Africa
+Swaziland,1160164,Middle East & Africa
+Djibouti,988000,Middle East & Africa
+Réunion,895312,Middle East & Africa
+Comoros,869601,Middle East & Africa
+Western Sahara,597339,Middle East & Africa
+Cabo Verde,555987,Middle East & Africa
+Mayotte,272815,Middle East & Africa
+Sao Tome & Principe,219159,Middle East & Africa
+Seychelles,98347,Middle East & Africa
+Saint Helena,6077,Middle East & Africa
+China,1439323776,Asia Pacific
+India,1380004385,Asia Pacific
+Indonesia,273523615,Asia Pacific
+Bangladesh,164689383,Asia Pacific
+Japan,126476461,Asia Pacific
+Philippines,109581078,Asia Pacific
+Vietnam,97338579,Asia Pacific
+Iran,83992949,Asia Pacific
+Thailand,69799978,Asia Pacific
+Myanmar,54409800,Asia Pacific
+South Korea,51269185,Asia Pacific
+Uzbekistan,33469203,Asia Pacific
+Malaysia,32365999,Asia Pacific
+Nepal,29136808,Asia Pacific
+North Korea,25778816,Asia Pacific
+Taiwan,23816775,Asia Pacific
+Sri Lanka,21413249,Asia Pacific
+Kazakhstan,18776707,Asia Pacific
+Cambodia,16718965,Asia Pacific
+Tajikistan,9537645,Asia Pacific
+Hong Kong,7496981,Asia Pacific
+Laos,7275560,Asia Pacific
+Kyrgyzstan,6524195,Asia Pacific
+Turkmenistan,6031200,Asia Pacific
+Singapore,5850342,Asia Pacific
+Georgia,3989167,Asia Pacific
+Mongolia,3278290,Asia Pacific
+Timor-Leste,1318445,Asia Pacific
+Bhutan,771608,Asia Pacific
+Macao,649335,Asia Pacific
+Maldives,540544,Asia Pacific
+Brunei,437479,Asia Pacific
+Australia,25499884,Asia Pacific
+Papua New Guinea,8947024,Asia Pacific
+New Zealand,4822233,Asia Pacific
+Fiji,896445,Asia Pacific
+Solomon Islands,686884,Asia Pacific
+Micronesia,548914,Asia Pacific
+Vanuatu,307145,Asia Pacific
+New Caledonia,285498,Asia Pacific
+French Polynesia,280908,Asia Pacific
+Samoa,198414,Asia Pacific
+Guam,168775,Asia Pacific
+Kiribati,119449,Asia Pacific
+Tonga,105695,Asia Pacific
+Marshall Islands,59190,Asia Pacific
+Northern Mariana Islands,57559,Asia Pacific
+American Samoa,55191,Asia Pacific
+Palau,18094,Asia Pacific
+Cook Islands,17564,Asia Pacific
+Tuvalu,11792,Asia Pacific
+Wallis & Futuna,11239,Asia Pacific
+Nauru,10824,Asia Pacific
+Niue,1626,Asia Pacific
+Tokelau,1357,Asia Pacific
+Russian Federation,145934462,Greater Europe
+Germany,83783942,Greater Europe
+United Kingdom,67886011,Greater Europe
+France,65273511,Greater Europe
+Italy,60461826,Greater Europe
+Spain,46754778,Greater Europe
+Ukraine,43733762,Greater Europe
+Poland,37846611,Greater Europe
+Romania,19237691,Greater Europe
+Netherlands,17134872,Greater Europe
+Belgium,11589623,Greater Europe
+Czech Republic,10708981,Greater Europe
+Greece,10423054,Greater Europe
+Portugal,10196709,Greater Europe
+Sweden,10099265,Greater Europe
+Hungary,9660351,Greater Europe
+Belarus,9449323,Greater Europe
+Austria,9006398,Greater Europe
+Serbia,8737371,Greater Europe
+Switzerland,8654622,Greater Europe
+Bulgaria,6948445,Greater Europe
+Denmark,5792202,Greater Europe
+Finland,5540720,Greater Europe
+Slovakia,5459642,Greater Europe
+Norway,5421241,Greater Europe
+Ireland,4937786,Greater Europe
+Croatia,4105267,Greater Europe
+Moldova,4033963,Greater Europe
+Bosnia and Herzegovina,3280819,Greater Europe
+Albania,2877797,Greater Europe
+Lithuania,2722289,Greater Europe
+North Macedonia,2083374,Greater Europe
+Slovenia,2078938,Greater Europe
+Latvia,1886198,Greater Europe
+Kosovo,1870981,Greater Europe
+Estonia,1326535,Greater Europe
+Cyprus,1207359,Greater Europe
+Montenegro,628066,Greater Europe
+Luxembourg,625978,Greater Europe
+Malta,441543,Greater Europe
+Iceland,341243,Greater Europe
+Channel Islands,173863,Greater Europe
+Isle of Man,85033,Greater Europe
+Andorra,77265,Greater Europe
+Faeroe Islands,48863,Greater Europe
+Monaco,39242,Greater Europe
+Liechtenstein,38128,Greater Europe
+San Marino,33931,Greater Europe
+Gibraltar,33691,Greater Europe
+Holy See,801,Greater Europe
+United States,331002651,Americas
+Canada,37742154,Americas
+Bermuda,62278,Americas
+Greenland,56770,Americas
+Saint Pierre & Miquelon,5794,Americas
+Brazil,212559417,Americas
+Mexico,128932753,Americas
+Colombia,50882891,Americas
+Argentina,45195774,Americas
+Peru,32971854,Americas
+Venezuela,28435940,Americas
+Chile,19116201,Americas
+Guatemala,17915568,Americas
+Ecuador,17643054,Americas
+Bolivia,11673021,Americas
+Cuba,11326616,Americas
+Haiti,11402528,Americas
+Dominican Republic,10847910,Americas
+Honduras,9904607,Americas
+Paraguay,7132538,Americas
+Nicaragua,6624554,Americas
+El Salvador,6486205,Americas
+Costa Rica,5094118,Americas
+Panama,4314767,Americas
+Uruguay,3473730,Americas
+Jamaica,2961167,Americas
+Puerto Rico,2860853,Americas
+Trinidad and Tobago,1399488,Americas
+Guyana,786552,Americas
+Suriname,586632,Americas
+Guadeloupe,400124,Americas
+Belize,397628,Americas
+Bahamas,393244,Americas
+Martinique,375265,Americas
+French Guiana,298682,Americas
+Barbados,287375,Americas
+Saint Lucia,183627,Americas
+Curaçao,164093,Americas
+Grenada,112523,Americas
+St. Vincent & Grenadines,110940,Americas
+Aruba,106766,Americas
+U.S. Virgin Islands,104425,Americas
+Antigua and Barbuda,97929,Americas
+Dominica,71986,Americas
+Cayman Islands,65722,Americas
+Saint Kitts & Nevis,53199,Americas
+Sint Maarten,42876,Americas
+Turks and Caicos,38717,Americas
+Saint Martin,38666,Americas
+British Virgin Islands,30231,Americas
+Caribbean Netherlands,26223,Americas
+Anguilla,15003,Americas
+Montserrat,4992,Americas
+Falkland Islands,3480,Americas
